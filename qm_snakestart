@@ -79,7 +79,7 @@ def link_if(dirname):
 
 
 if os.getcwd() != snakedir:
-    for dir in ['bin', 'scripts', 'manual_steps', 'docs']:
+    for dir in ['bin', 'scripts', 'manual_steps', 'docs', 'input_data']:
         link_if(dir)
 
 
