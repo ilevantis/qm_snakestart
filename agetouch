@@ -1,0 +1,13 @@
+#! /bin/bash
+
+# touches files recursively in directory tree but maintains age order
+#     e.g. if file_1 is older than file_2, file_1 will remain at
+#     least 1 second older than file_2
+
+find ${1} -type f -not -path "*/.*/*" -printf "%T@ %p\0" | \
+  sort -zrn | \
+  gawk '
+    BEGIN{RS="\0";ORS="\0";OFS="\0";st=systime()}
+    {st=st-1; print strftime("%y%m%d%H%M.%S",st), $2}
+  ' | \
+  xargs -0 -i -n2 touch -t
