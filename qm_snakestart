@@ -161,7 +161,7 @@ EOF
 cat << 'EOF' | sed -e "s/<PROJECTNAME>/${projectname}/g" > runsnake
 #! /usr/bin/env bash
 
-scratch="/data/autoScratch/monthly/$USER"
+scratch="/data/scratch/$USER"
 dir=""
 ARGS=""
 
@@ -178,14 +178,8 @@ Runs snakemake with appropriate options for Apocrita.
                Specify a workdirectory for snakemake. Use '.' to execute in
                the same dir as the snakefile.
 
--w (--weekly)  Use autoScratch/weekly instead of autoScratch/monthly
-
 SNAKEMAKE_ARGS The arguments to pass to snakemake.\n"
             exit
-            ;;
-
-        -w|--weekly)
-            scratch="/data/autoScratch/weekly/$USER"
             ;;
 
         -d|--dir)
