@@ -60,7 +60,7 @@ echo "This directory contains short scripts for use in manual steps or as part o
 cat << EOF > Snakefile
 # Setup
 
-import os, site, snakemake.shell
+import os, site, sys, snakemake.shell
 
 cur_env_dir = site.PREFIXES[0]				# get conda environment directory e.g. '~/miniconda3/envs/proj'
 snakemake.shell.executable('/bin/bash')		# set snakemake shell executable
@@ -69,13 +69,13 @@ snakedir = srcdir('')[:-1]
 
 def link_if(dirname):
     if os.path.exists(dirname):
-        print("{}/{} already exists.".format(os.getcwd(), dirname))
+        pass
     else:
         if os.path.exists(srcdir(dirname)):
-			print("Creating symlink for {}.".format(srcdir(dirname)))
+            print("Creating symlink for {}.".format(srcdir(dirname)), file=sys.stderr)
             os.symlink(srcdir(dirname), dirname)
         else:
-            print("{} does not exist.".format(srcdir(dirname)))
+            print("{} does not exist.".format(srcdir(dirname)), file=sys.stderr)
 
 
 if os.getcwd() != snakedir:
